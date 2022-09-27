@@ -32,21 +32,18 @@ const loadAll = async (scene: any[], onProgressCallback?: (progress: number, tot
     return () => onProgressCallback(progress, total)
   }
 
-  // for (let i = 0; i < scene.length; i += stride) {
-  //   requestAnimationFrame(
-  //     // loadItems(scene.slice(i, i + stride), callback(i + 1, scene.length))
-  //     loadItems(scene.slice(i, i + stride))
-  //   )
-  // }
-  console.log(scene)
   for (let i = 0; i < scene.length; i += stride) {
-    const items = scene.slice(i, i + stride)
-    console.log(i)
-    console.log(items)
-    setTimeout(
-      () => loadItems(items, callback(i + 1, scene.length))
-      , 100)
+    requestAnimationFrame(
+      () => loadItems(scene.slice(i, i + stride), callback(i + 1, scene.length))
+    )
   }
+
+  // for (let i = 0; i < scene.length; i += stride) {
+  //   const items = scene.slice(i, i + stride)
+  //   setTimeout(
+  //     () => loadItems(items, callback(i + 1, scene.length))
+  //     , 100)
+  // }
 }
 
 const loadItems = (items: any[], onProgressCallback?: () => void) => {
@@ -93,6 +90,7 @@ export function loadDXF(data: string, onProgressCallback?: (progress: number, to
   // @ts-ignore
   const scene = dxfJson?.entities.reduce((p, { type, vertices }, index) => {
     switch (type) {
+      case 'LINE':
       case 'POLYLINE':
         p.push(new PRIM.prim('polyline', 
           vertices.map((v: any) =>

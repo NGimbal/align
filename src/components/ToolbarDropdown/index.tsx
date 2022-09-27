@@ -38,7 +38,7 @@ export const TooblarDropdown: FC<TooblarDropdownProps> = ({
       </Tooltip>
       <DropdownMenu.Content className='dropdown-content'>
         {options.map((group, i, a) =>
-          <>
+          <div key={i}>
             {group.map((o, i) => (
               <DropdownMenu.CheckboxItem
                 key={`${o}-${i}`}
@@ -83,7 +83,7 @@ export const TooblarDropdown: FC<TooblarDropdownProps> = ({
               </DropdownMenu.CheckboxItem>
             ))}
             {(i !== a.length - 1) && <Separator className='separator-02' />}
-          </>
+          </div>
         )}
         <DropdownMenu.Arrow style={{ fill: 'var(--color-warmblue)' }} />
       </DropdownMenu.Content>

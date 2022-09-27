@@ -361,10 +361,6 @@ export const reducer = function (state = initialState, action) {
     return initialState
   }
   switch (action.type) {
-    case ACT.status:
-      return Object.assign({}, state, {
-        status: status(state, action),
-      })
     case ACT.cursor:
       return Object.assign({}, state, {
         cursor: cursor(state, action),

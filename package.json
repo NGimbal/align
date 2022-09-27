@@ -1,5 +1,5 @@
 {
-  "name": "react-component-library",
+  "name": "align",
   "version": "1.0.0",
   "main": "build/index.js",
   "module": "build/index.esm.js",
@@ -7,35 +7,35 @@
     "build"
   ],
   "types": "build/index.d.ts",
-  "description": "A skeleton to create your own React component library using Rollup, TypeScript, Sass and Storybook",
+  "description": "A 2d rendering engine and drawing tool. An experiment.",
   "scripts": {
     "build": "rollup -c",
     "test": "jest",
     "test:watch": "jest --watch",
     "storybook": "start-storybook -p 6006",
     "storybook:export": "build-storybook",
+    "predeploy-storybook": "npm run storybook:export",
+    "deploy-storybook": "gh-pages -d storybook-static",
     "generate": "node ./util/create-component",
     "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HarveyD/react-component-library.git"
+    "url": "git+https://github.com/NGimbal/align"
   },
   "keywords": [
     "React",
-    "Component",
-    "Library",
-    "Rollup",
-    "Typescript",
-    "Sass",
-    "Storybook"
+    "Webgl2",
+    "2d",
+    "rendering",
+    "SDF"
   ],
-  "author": "Harvey Delaney",
+  "author": "Nicolas Schmidt",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/HarveyD/react-component-library/issues"
+    "url": "https://github.com/NGimbal/align/issues"
   },
-  "homepage": "https://github.com/HarveyD/react-component-library#readme",
+  "homepage": "https://ngimbal.github.io/align/?path=/story/drawing-panel--default",
   "peerDependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1"

@@ -107,6 +107,7 @@ export const AlignSider: FC<AlignSiderProps> = ({ state, visible = true, style }
                 {state.scene.editItems.map((item: any, i: number) => {
                   return item && item.pts.length > 0 ? (
                     <li className="flex-row"
+                      key={`${item.id}-${i}`}
                       style={{
                         alignItems: 'center',
                         gap: 4,
