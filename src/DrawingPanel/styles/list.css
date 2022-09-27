@@ -1,0 +1,8 @@
+ul {
+  list-style-type: none;
+  padding: 4px 0px;
+  margin: 0px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: var(--color-warning);
+}

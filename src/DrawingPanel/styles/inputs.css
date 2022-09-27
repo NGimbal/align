@@ -1,0 +1,21 @@
+.input-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: start;
+  font-size: .75rem;
+  font-weight: 500;
+  width: 100%;
+  color: var(--color-grey4);
+  margin-top: 4px;
+}
+
+.tooltip-content {
+  color: var(--color-grey5);
+  border-radius: 4px;
+  padding: 6px 10px;
+  background-color: var(--color-grey1);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--color-warmblue);
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+}

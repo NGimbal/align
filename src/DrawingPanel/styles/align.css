@@ -1,0 +1,100 @@
+#drawing-panel {
+  height: 100%;
+  width: 100%;
+}
+
+.drawing-panel-float {
+  box-shadow: 0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017;
+  transition: transform 1s, box-shadow 3s ease-in-out;
+}
+
+.drawing-panel-float:hover {
+  box-shadow: -15px 0 200px -50px #e9896277, 0 0 200px -50px #fe19c877, 15px 0 200px -50px #9425c977;
+}
+
+#canvas-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+#c {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+
+  bottom: 0px;
+  top: 0px;
+}
+
+#text {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+
+  bottom: 0px;
+  top: 0px;
+}
+
+#draw-shapes {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+  supported by Chrome, Opera and Firefox */
+}
+
+.dragOver {
+  border: 3px dashed var(--color-warmblue);
+}
+
+/* Prim Chip */
+.prim-chip {
+  color: var(--color-grey5);
+  padding: 1px 8px 3px;
+  background-color: var(--color-warmblue0);
+  border-radius: 100px;
+  display: flex;
+  width: fit-content;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-warmblue0);
+  cursor: pointer;
+}
+
+.prim-chip:hover {
+  background-color: var(--color-warmblue);
+  border-color: var(--color-warmblue);
+  color: var(--color-grey1);
+}
+
+.prim-chip-selected {
+  background-color: var(--color-warmblue);
+  border-color: var(--color-warmblue);
+  color: var(--color-grey1);
+}
+
+.prim-chip-selected:hover {
+  background-color: var(--color-warmblue0);
+  border-color: var(--color-warmblue0);
+  color: var(--color-grey5);
+}

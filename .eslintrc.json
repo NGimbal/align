@@ -1,0 +1,84 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint"
+  ],
+  "ignorePatterns": [
+    "*.css",
+    "*.scss",
+    "**.test.tsx",
+    "**.stories.tsx"
+  ],
+  "rules": {
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "react-hooks/rules-of-hooks": [
+      "error"
+    ],
+    "react-hooks/exhaustive-deps": [
+      "warn"
+    ],
+    "react/jsx-key": [
+      "warn"
+    ],
+    "react/prop-types": [
+      "warn"
+    ],
+    "no-case-declarations": [
+      "warn"
+    ],
+    "@typescript-eslint/no-explicit-any": [
+      "warn"
+    ],
+    "@typescript-eslint/ban-ts-comment": [
+      "warn"
+    ],
+    "@typescript-eslint/ban-types": [
+      "warn"
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

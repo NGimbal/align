@@ -1,0 +1,85 @@
+:root {
+  --color-invalid: #f53d5f;
+  --color-invalid0: hsl(349, 73%, 94%);
+  --color-warning: #ff7942;
+  --color-offwhite: #fefcf9;
+  --color-paleyellow: #fefbe4;
+  --color-fuckyeahyellow: #ffd504;
+  --color-warmblue0: #e9ecf9;
+  --color-warmblue1: #c3cef2;
+  --color-warmblue: #375fe5;
+  --color-violet: #9425c9;
+  --color-galaxy: #3f1045;
+  --color-zap: #b9f94d;
+  --color-green: #56bb66;
+  --color-grey1: hsl(210, 17%, 98%);
+  --color-grey2: hsl(0, 0%, 95%);
+  --color-grey3: hsl(210, 18%, 84%);
+  --color-grey4: hsl(206, 6%, 56%);
+  --color-grey5: hsl(261, 3%, 30%);
+  --color-grey6: hsl(204, 33%, 9%);
+  --font-body: -apple-system, "Segoe UI", Helvetica Neue, Helvetica,
+    Roboto, Arial, sans-serif, system-ui, "Apple Color Emoji",
+    "Segoe UI Emoji";
+  --border-radius-01: 2px;
+  --border-radius-02: 4px;
+}
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+:-moz-focusring {
+  outline: auto;
+}
+
+:focus {
+  outline: #daeaf7 solid 2px;
+  z-index: 1;
+}
+
+html,
+body {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  color: var(--color-grey5);
+  background-color: var(--color-grey1);
+}
+
+[data-light] {
+  --color-invalid: var(--color-invalid);
+  color: var(--color-grey6);
+  background-color: var(--color-grey2);
+}
+
+body {
+  font-family: var(--font-body);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  background-color: var(--color-galaxy);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.container {
+  width: 100%;
+  padding: 56px 5% 24px;
+  flex: 1;
+  min-height: calc(100vh - 112px);
+  background-color: var(--color-offwhite);
+}

@@ -1,0 +1,56 @@
+.menu {
+  padding: 12px 8px;
+  border: 1px solid var(--color-grey3);
+  border-radius: var(--border-radius-02);
+  background-color: var(--color-grey1);
+  row-gap: 6px;
+}
+
+.menu-button {
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  color: var(--color-grey6);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.menu-item {
+  width: 100%;
+  padding: 2px 8px;
+  border-radius: var(--border-radius-01);
+  transition: background-color 250ms ease-out;
+  text-align: right;
+}
+
+.menu-item:hover {
+  background-color: var(--color-warmblue0);
+  cursor: pointer;
+}
+
+.menu-item:focus {
+  outline-width: 1px;
+  outline-color: var(--color-warmblue);
+}
+
+.menu-item-active {
+  background-color: var(--color-warmblue0);
+}
+
+.menu-item-danger {
+  color: var(--color-invalid);
+}
+
+.menu-item-danger:hover {
+  background-color: var(--color-invalid0);
+}
+
+.menu-item-danger:focus {
+  outline-width: 1px;
+  outline-color: var(--color-invalid);
+}
+
+.dropdown-arrow {
+  fill: var(--color-grey1);
+  stroke: var(--color-grey3);
+  stroke-width: 1px;
+}
