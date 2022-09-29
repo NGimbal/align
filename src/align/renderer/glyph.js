@@ -4,7 +4,6 @@
 import chroma from 'chroma-js'
 import * as twgl from 'twgl.js'
 
-// will live in a scene object that is the singleton for this shit
 import { gl, state, resolution, mPt, dPt } from '../draw.js'
 
 import { SCALE } from '../constants'
@@ -70,8 +69,9 @@ export class Glyph {
     // this is probably something we'll have to change at some point
     this.bbox
 
-    if (typeof prim.pts !== 'undefined' && prim.pts.length && this.uniforms.u_eTex) {
-      // prim.pts.forEach((p, i) => this.uniforms.u_eTex.addPoint(p, prim.id.slice(), i));
+    if (typeof prim.pts !== 'undefined' && 
+      prim.pts.length && 
+      this.uniforms.u_eTex) {
       this.uniforms.u_eTex.addPoints(prim.pts)
     }
 
@@ -292,7 +292,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt.x, mPt.y, 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], 0),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
         u_eTex: {},
         u_cTex: -1,
         u_weight: properties.weight,
@@ -305,7 +305,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt.x, mPt.y, 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], 0),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
         u_eTex: {},
         u_cTex: -1,
         u_weight: properties.weight,
@@ -318,7 +318,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt[0], mPt[1], 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], 0),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
         u_eTex: {},
         u_cTex: -1,
         u_weight: properties.weight,
@@ -331,7 +331,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt[0], mPt[1], 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], 0),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
         u_eTex: {},
         u_cTex: -1,
         u_weight: properties.weight,
@@ -344,7 +344,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt.x, mPt.y, 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], 0),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
         u_eTex: {},
         u_cTex: -1,
         u_weight: properties.weight,
@@ -358,7 +358,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt.x, mPt.y, 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], 0),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
         u_eTex: {},
         u_distTex: {},
         u_cTex: -1, // not really a tex... stands for current Texel
@@ -379,7 +379,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt.x, mPt.y, 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], 0),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
         u_eTex: {},
         u_weight: properties.weight,
         u_opacity: properties.opacity,

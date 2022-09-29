@@ -141,7 +141,18 @@ function middleWare({ getState }) {
       return
     }
 
+    const selActions = [
+      ACT.EDIT_SELECTAPND,
+      ACT.EDIT_SELECTCLR,
+      ACT.EDIT_SELECTREPLACE,
+      ACT.EDIT_SELECTRMV,
+      ACT.EDIT_SETSEL,
+      ACT.EDIT_HOVERCLR,
+      ACT.EDIT_HOVERSET
+    ]
+
     if (action.type === ACT.scene &&
+      !selActions.includes(action.subtype) &&
       typeof setParentState === 'function') {
       updateDataStructures(newState)
 
@@ -654,7 +665,7 @@ function draw() {
     updateGlyphUniforms(g, prim)
   })
 
-  // TODO: visible should be a property of the prim, and then updated in updateUniforms
+  // TODO: visible should be a property of the prim, and then updated in updateGlyphUniforms
   glyphs.forEach(g => {
     g.active =
       (bboxSearch.includes(g.id) && g.visible)
@@ -791,14 +802,15 @@ export function zoomToBbox(bbox) {
   dispatch(ACT.uiTargetHome(true))
 }
 
-// TODO: debug this
 export function zoomToFit() {
   dispatch(ACT.uiTargetHome(false))
 
   let pts = ptTree.all()
 
   if (state.scene.selected.length > 0) {
-    pts = pts.filter(pt => state.scene.selected.includes(pt.pId))
+    const filtered = pts.filter(pt => state.scene.selected.includes(pt.pId))
+    // This is a bandaid, debug issue with pId
+    pts = filtered.length > 0 ? filtered : pts
   }
 
   const sceneBox = new PRIM.bbox({ pts, type: 'polyline', id: 'scene-box' })

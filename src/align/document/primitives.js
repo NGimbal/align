@@ -36,14 +36,13 @@ export class vec {
   constructor(x, y, z, w, pId, id) {
     this.v3 = twgl.v3.create(x, y, 0.0)
 
-    // TODO: maybe someday factor this shit out
     // it's also convenient but feels a little unclean
     // the reason to use this method, is to keep the vec light
     // when serializing to JSON
     sync(this, 'x', this.v3, 0)
     sync(this, 'y', this.v3, 1)
     sync(this, 'z', this.v3, 2)
-    // TODO: this w thing is unused I believe, but I'm afraid to delete it
+    // TODO: w is unused
     // the reason to have it is because we have 4 channels for rgba all of which could be useful
     sync(this, 'w', this.v3, 2)
 
@@ -349,6 +348,7 @@ export class PolyPoint {
     const data = new Uint16Array(4 * size * size)
 
     this.dataSize = size
+    // this.pts = [...pts]
 
     // use view.setFloat16() to set the digits in the DataView
     // then use view.getUint16 to retrieve and write to data Texture

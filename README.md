@@ -32,8 +32,8 @@ There are a lot of other features currently in progress including importing .DXF
 - [x] Download .json scene
 - [x] Baked shapes are rendered to textures, so they don't have to be raytraced every frame (pros and cons)
 - [x] Zoom to fit, zoom to shape
+- [x] Import json scene by drag + drop
 ## In Progress (aka broken)
-- [ ] Import json scene by drag + drop
 - [ ] Import dxf by drag + drop
 - [ ] Modify drawing properties after the shape has been "baked" to the scene
 

@@ -1,9 +1,9 @@
-// @ts-ignore
 import * as ACT from './store/actions.js'
 
-// @ts-ignore
 import { state, dispatch } from '../draw'
-// @ts-ignore
+
+import { SCALE } from '../constants'
+
 import * as PRIM from './primitives'
 import DxfParser from 'dxf-parser'
 
@@ -56,7 +56,7 @@ const loadItems = (items: any[], onProgressCallback?: () => void) => {
     // this is necessary to re-alias p.v3 variables
     const points = item.pts.map((p: any) => {
       // TODO: PRIM.uuid() is in place of p.pId.slice(), dealing with divergent schemas already I think >.<
-      return new PRIM.vec(p.v3[0], p.v3[1], p.v3[2], 0, id, PRIM.uuid())
+      return new PRIM.vec(p.v3[0], p.v3[1], p.v3[2], 0, id)
     })
 
     const type = item.type.slice()
@@ -88,21 +88,28 @@ export function loadDXF(data: string, onProgressCallback?: (progress: number, to
   const dxfJson = parser.parseSync(data)
 
   // @ts-ignore
-  const scene = dxfJson?.entities.reduce((p, { type, vertices }, index) => {
+  const scene = dxfJson?.entities.reduce((p, { type, vertices }) => {
+    const id = PRIM.uuid()
     switch (type) {
-      case 'LINE':
       case 'POLYLINE':
-        p.push(new PRIM.prim('polyline', 
-          vertices.map((v: any) =>
-            // TODO: parameterize scale factor
-            new PRIM.vec(v.x / 32, 0.0 - v.y / 32, v.z / 32)
-          )))
+        p.push(
+          new PRIM.prim(
+            'polyline', 
+            vertices.map((v: any) =>
+              new PRIM.vec(v.x / SCALE, 0.0 - v.y / SCALE, 0, 0, id.slice())
+            ),
+            PRIM.propsDefault,
+            id.slice()
+          )
+        )
         return p
       default:
         // console.log(type)
         return p
     }
-  }, [])  
+  }, [])
+
+  console.log(scene)
 
   if (!scene) return
 
