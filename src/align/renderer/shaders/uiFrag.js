@@ -47,7 +47,7 @@ void main(){
   // index.y = 1.0 - index.y;
   // float radius = (texture(u_distTex, index).x - 0.5) * u_resolution.x / u_resolution.y;
 
-  float dist = line(sdCircle(uv, mousePt, 0.008 + u_weight), 0.00075);
+  float dist = line(sdCircle(uv, mousePt, 0.008 + u_weight), 0.00075, u_dPt.z);
 
   vec2 boxPt = invTransformPt(u_boxSel.xy);
 
@@ -55,7 +55,7 @@ void main(){
   vec2 rPt = abs(mousePt - center);
   float box = sdBox(uv, center, rPt, 0.001);
 
-  float stroke = line(box, 0.0);
+  float stroke = line(box, 0.0, u_dPt.z);
   vec3 strokeCol = mix(vec3(1.), vec3(0.2745, 0.5098, 0.7059), stroke);
   strokeCol *= u_boxState;
   

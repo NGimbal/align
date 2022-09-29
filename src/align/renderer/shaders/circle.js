@@ -1,4 +1,4 @@
-import { sdCircle, filterLine, filterFill, drawPt, transformUV } from './shaderFunctions'
+import { sdCircle, filterLine, filterFill, drawPt, transformUV, discardCondition } from './shaderFunctions'
 
 //---------------------------------------------
 export const circleEdit =
@@ -45,14 +45,14 @@ void main(){
   }
 
   //stroke
-  float stroke = line(dist, u_weight);
+  float stroke = line(dist, u_weight, u_dPt.z);
   vec4 strokeCol = mix(vec4(vec3(1.),0.), vec4(u_stroke,stroke) , stroke);
   float fill = fillMask(dist);
   vec4 fillCol = mix(vec4(vec3(1.),0.), vec4(u_fill, u_opacity), fill);
 
   dist = min(stroke, fill);
 
-  if ( stroke + fill < 0.01) discard;
+  ${discardCondition}
 
   outColor = vec4(vec3(fillCol.rgb * strokeCol.rgb), fillCol.a + strokeCol.a);
   outColorDist = vec4(vec3(dist),1.0);

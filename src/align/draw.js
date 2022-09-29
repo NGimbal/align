@@ -136,7 +136,7 @@ function middleWare({ getState }) {
     //   console.log('---------------')
     // }
 
-    // TODO: this needs to actually be fixed
+    // TODO: prevent rapid updates to data structures while translating
     if (action.subtype === ACT.EDIT_TRANSLATE) {
       return
     }
@@ -160,6 +160,16 @@ function middleWare({ getState }) {
         ...state,
         scene: newState.scene,
       }))
+    }
+
+    if (selActions.includes(action.subType) &&
+      typeof setParentState === 'function') {
+      
+      setParentState(state => ({
+        ...state,
+        scene: newState.scene,
+      }))
+
     }
 
     if (action.type === ACT.history &&
@@ -632,8 +642,17 @@ function updateGlyphUniforms(glyph, prim) {
 
   if (_needsUpdate) {
     twgl.setUniforms(glyph.programInfo, glyph.uniforms)
-    // bakeGlyph(glyph);
-    // TODO: for baked prims, rerender the prim image
+    // this works but it's too slow
+    // skip ui and grid 
+    // if (glyph.primType === 'ui' || 
+    //   glyph.primType === 'grid' ||
+    //   prim.id === state.scene.editItem
+    // ) return
+
+    // glyphs = glyphs.filter(({ id }) => id !== glyph.id )
+    // const newGlyph = createGlyph(prim, glyph.order)
+    // glyphs.push(newGlyph)
+    // bakeGlyph(newGlyph)
   }
 }
 

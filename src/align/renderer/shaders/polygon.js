@@ -1,4 +1,4 @@
-import { sdCircle, filterLine, filterFill, sdLine, transformUV } from './shaderFunctions'
+import { sdCircle, filterLine, filterFill, sdLine, transformUV, discardCondition } from './shaderFunctions'
 
 export const polygonEdit = `
 #version 300 es
@@ -96,14 +96,14 @@ void main(){
     // dSh = min(dSh, sdLine(uv - dShTrans, u_mPt.xy, first, u_weight / 2.0, 0.0));
   }
 
-  float stroke = line(dist, u_weight);
+  float stroke = line(dist, u_weight, u_dPt.z);
   vec4 strokeCol = mix(vec4(vec3(1.),0.), vec4(u_stroke,stroke) , stroke);
   
   // dSh = (1. - smoothstep(0., 0.15, sqrt(dSh)))*.25;
 
   dist = min(stroke, fill);
   
-  if ( stroke + fill < 0.01) discard;
+  ${discardCondition}
 
   outColor = vec4(vec3(fillCol.rgb * strokeCol.rgb), fillCol.a + strokeCol.a);
   outColorDist = vec4(vec3(dist),1.0);
@@ -167,12 +167,12 @@ void main(){
 
   float fill = fillMask(d);
   vec4 fillCol = mix(vec4(vec3(1.),0.), vec4(u_fill, u_opacity), fill);
-  float stroke = line(d, u_weight);
+  float stroke = line(d, u_weight, u_dPt.z);
   vec4 strokeCol = mix(vec4(vec3(1.),0.), vec4(u_stroke,stroke) , stroke);
   
   float dist = min(stroke, fill);
 
-  if ( stroke + fill < 0.01) discard;
+  ${discardCondition}
 
   outColor = vec4(vec3(fillCol.rgb * strokeCol.rgb), fillCol.a + strokeCol.a);
   outColorDist = vec4(vec3(dist),1.0);

@@ -189,7 +189,13 @@ export function bakeGlyph(glyph) {
   // TODO: create new image glyph, current glyph is a child of that glyph
   updateMatrices(glyph, true)
   glyph.programInfo = twgl.createProgramInfo(gl, [glyph.vert, getFragStub('img')])
+  
+  // add old uniforms and new uniforms
+  // old uniforms are used to check previous state that was used to render glyph
+  // glyph.uniforms = { ...glyph.uniforms, ...getUniforms({ type: 'img', imgSrc, distImgSrc }) }
+
   glyph.uniforms = getUniforms({ type: 'img', imgSrc, distImgSrc })
+
   gl.useProgram(glyph.programInfo.program)
   twgl.setUniforms(glyph.programInfo, glyph.uniforms)
 }
@@ -292,7 +298,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt.x, mPt.y, 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], dPt[2]),
         u_eTex: {},
         u_cTex: -1,
         u_weight: properties.weight,
@@ -305,7 +311,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt.x, mPt.y, 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], dPt[2]),
         u_eTex: {},
         u_cTex: -1,
         u_weight: properties.weight,
@@ -318,7 +324,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt[0], mPt[1], 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], dPt[2]),
         u_eTex: {},
         u_cTex: -1,
         u_weight: properties.weight,
@@ -331,7 +337,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt[0], mPt[1], 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], dPt[2]),
         u_eTex: {},
         u_cTex: -1,
         u_weight: properties.weight,
@@ -344,7 +350,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt.x, mPt.y, 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], dPt[2]),
         u_eTex: {},
         u_cTex: -1,
         u_weight: properties.weight,
@@ -358,7 +364,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt.x, mPt.y, 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], dPt[2]),
         u_eTex: {},
         u_distTex: {},
         u_cTex: -1, // not really a tex... stands for current Texel
@@ -379,7 +385,7 @@ export function getUniforms(prim) {
         u_textureMatrix: twgl.m4.copy(texMatrix),
         u_resolution: twgl.v3.create(gl.canvas.width, gl.canvas.height, 0),
         u_mPt: twgl.v3.create(mPt.x, mPt.y, 0),
-        u_dPt: twgl.v3.create(dPt[0], dPt[1], SCALE),
+        u_dPt: twgl.v3.create(dPt[0], dPt[1], dPt[2]),
         u_eTex: {},
         u_weight: properties.weight,
         u_opacity: properties.opacity,

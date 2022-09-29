@@ -72,7 +72,7 @@ void main(){
   //dont know what the range for d is tho... have a feeling it's actually pretty small
   outColorDist = vec4(vec3(clamp(dist + 0.5,0.0,1.0)),1.0);
 
-  dist = line(dist, u_weight);
+  dist = line(dist, u_weight, u_dPt.z);
   vec3 col = mix(vec3(1.0), u_stroke, dist);
   dSh = (1. - smoothstep(0., 0.15, sqrt(dSh)))*.25;
 
@@ -90,8 +90,8 @@ precision highp float;
 
 in vec2 v_texcoord;
 
-// uniform vec3 u_resolution;
-// uniform vec3 u_dPt;
+uniform vec3 u_resolution;
+uniform vec3 u_dPt;
 
 uniform sampler2D u_eTex;
 uniform float u_weight;
@@ -132,7 +132,7 @@ void main(){
   vec4 scene = sceneDist(uv);
 
   vec3 col = scene.xyz;
-  float dist = line(scene.w, u_weight);
+  float dist = line(scene.w, u_weight, u_dPt.z);
 
   // comment out for background color
   // if ( dist < 0.001){

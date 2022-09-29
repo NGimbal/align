@@ -112,10 +112,11 @@ float sdEllipse( vec2 p, vec2 e )
 `
 
 // Filters
+// d = 1.0 - smoothstep(0.0, 0.003, abs(d));
 export const filterLine = `
-float line(float d, float w){
+float line(float d, float w, float zoom){
   d = clamp(abs(d) - w, 0.0, 1.0);
-  d = 1.0 - smoothstep(0.0, 0.003, abs(d));
+  d = 1.0 - smoothstep(0.0, 0.00008 * zoom, abs(d));
   return d;
 }
 `
@@ -129,7 +130,7 @@ float fillMask(float dist){
 
 export const filterSDF = `
 //smooth sdf Iso
-vec3 sdf(vec2 uv, float d){
+vec3 filterSDF(vec2 uv, float d){
   vec3 col = vec3(1.0) - sign(d)*vec3(0.1,0.4,0.7);
 	col *= 1.0 - exp(-3.0*abs(d));
 	col *= 0.8 + 0.2*cos(150.0*d);
@@ -179,4 +180,8 @@ export const invTransformUV = `
   uv *= ${SCALE}. / u_dPt.z;
   uv += u_dPt.xy;
   uv.x *= u_resolution.y / u_resolution.x;
+`
+
+export const discardCondition =`
+  if ( stroke + fill < 0.01) discard;
 `

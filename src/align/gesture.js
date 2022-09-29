@@ -428,23 +428,12 @@ const snapToRelativeAngle = (pt, [prevPrev, prev], relativeAngle) => {
 }
 
 //---SELECT----------------------------
-// function endDrawClck() {
-//   this.toggle = true;
-// }
-
-// //
-// function escDrawClck() {
-//   this.toggle = true;
-// }
-
 function endDrawClck() {
-  // if (!this.toggle) return null;
 
   let currItem = state.scene.editItems.find(item => item.id === state.scene.editItem)
 
   if (currItem.pts.length < 1) {
     dispatch(ACT.uiMode('select'))
-    // this.toggle = false;
     return
   }
 
@@ -454,12 +443,10 @@ function endDrawClck() {
   dispatch(ACT.scenePushEditItem(newPrim))
   dispatch(ACT.historyPush(state.scene))
 
-  // this.toggle = false;
   return
 }
 
 function escDrawClck() {
-  // if (!this.toggle) return null;
 
   let id = state.scene.editItem
   let currItem = state.scene.editItems.find(i => i.id === id)
@@ -516,10 +503,6 @@ class UIModifier {
     if (events.update) {
       this.update = events.update
     }
-    // if (events.act) {
-    // this.act = events.act;
-    // this.clck = () => dispatch(events.act);
-    // }
     if (events.clck) {
       this.clck = events.clck.bind(this)
     }

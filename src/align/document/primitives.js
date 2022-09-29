@@ -252,14 +252,12 @@ export class prim {
     this.imgSrc = _imgSrc || undefined
   }
 }
-// TODO: create a bulk addPoints function to optimize the loading process
-//PolyPoint is an array of points, a texture representation and properties
-//Another class e.g. PolyLine extends PolyPoint to manipulate and bake
+
+//PolyPoint is an array of points, a texture representation
 export class PolyPoint {
 
   // creates empty PolyPoint object
   constructor(_dataSize) {
-    // this.properties = properties;
     this.dataSize = _dataSize || 16
 
     // list of points
@@ -348,7 +346,7 @@ export class PolyPoint {
     const data = new Uint16Array(4 * size * size)
 
     this.dataSize = size
-    // this.pts = [...pts]
+    this.pts = [...this.pts, ...pts]
 
     // use view.setFloat16() to set the digits in the DataView
     // then use view.getUint16 to retrieve and write to data Texture
@@ -441,38 +439,6 @@ export class PolyPoint {
   }
 }
 
-export class PointArray {
-  // creates empty PolyPoint object
-  constructor(_dataSize) {
-    this.dataSize = 3
-
-    // list of points
-    this.pts = []
-
-    this.id = uuid()
-  }
-
-  addPoint(_pt, pId, index) {
-
-    let x = _pt ? _pt.x : 0.0
-    let y = _pt ? _pt.y : 0.0
-    let z = _pt && _pt.z ? _pt.z : 0.0
-    let w = _pt && _pt.z ? _pt.w : 0.0
-
-    let pt = new vec(x, y, z, w, pId)
-
-    index ? this.pts[index] = pt : this.pts.push(pt)
-  }
-
-  popPoint() {
-    return this.pts.pop()
-  }
-
-  getPoint(index) {
-    return this.pts[index]
-  }
-}
-
 //https://www.iquilezles.org/www/articles/distfunctions2d/distfunctions2d.htm
 export function distPrim(_mPt, prim) {
   let mPt = {}
@@ -546,10 +512,10 @@ function pLineDist(mPt, prim) {
       continue
     }
 
-    // TODO: return h from lineDist
     let lD = lineDist(mPt, prev, p, prim.properties.weight)
 
-    // TODO: if lD < dist, return (dist, {a: prev, b: p}, h)
+    // TODO: select line segments:
+    // if lD < dist, return (dist, {a: prev, b: p}, h)
     dist = Math.min(dist, lD)
 
     prev = p

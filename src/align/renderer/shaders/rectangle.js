@@ -52,12 +52,12 @@ void main(){
   }
 
   //stroke
-  float stroke = line(dist, u_weight);
+  float stroke = line(dist, u_weight, u_dPt.z);
   vec4 strokeCol = mix(vec4(vec3(1.),0.), vec4(u_stroke,stroke) , stroke);
   float fill = fillMask(dist);
   
-  vec4 fillCol = mix(vec4(vec3(1.),0.), vec4(u_fill, u_opacity), fill);
-  // vec4 fillCol = vec4(sdf(uv, dist), 0.5);
+  // vec4 fillCol = mix(vec4(vec3(1.),0.), vec4(u_fill, u_opacity), fill);
+  vec4 fillCol = vec4(filterSDF(uv, dist), 0.5);
 
   dist = min(stroke, fill);
 
@@ -99,6 +99,7 @@ ${sdBox}
 ${filterLine}
 ${filterFill}
 ${drawPt}
+${filterSDF}
 
 void main(){
   outColor = vec4(u_idCol, 0.125);

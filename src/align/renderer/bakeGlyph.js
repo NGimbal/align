@@ -109,7 +109,7 @@ function polyLineFunc(prim, shader, parameters) {
     }
   }
 
-  posString += '\n\tfinalColor = mix(finalColor, u_stroke, line(accumD, u_weight));'
+  posString += '\n\tfinalColor = mix(finalColor, u_stroke, line(accumD, u_weight, u_dPt.z));'
   posString += '\n\treturn vec4(finalColor, accumD);'
   posString += '\n}\n'
   posString += '//$END-' + prim.id.substr(0, 7) + '\n'
@@ -317,7 +317,7 @@ export function circleCall(prim, glyph) {
 
   posString += '\tfloat radius = distance(texture(u_eTex, pos).xy, texture(u_eTex, rad).xy);\n'
   posString += '\td = sdCircle(uv - vec2(0., 0.), texture(u_eTex, pos).xy, radius);\n'
-  posString += '\tfloat stroke = line(d, u_weight);\n'
+  posString += '\tfloat stroke = line(d, u_weight, u_dPt.z);\n'
   posString += '\tvec4 strokeCol = mix(vec4(vec3(1.),0.), vec4(u_stroke,stroke) , stroke);\n'
   posString += '\tfloat fill = fillMask(d);'
   posString += '\tvec4 fillCol = mix(vec4(vec3(1.),0.), vec4(u_fill, u_opacity), fill);\n'
@@ -366,7 +366,7 @@ export function ellipseCall(prim, glyph) {
   posString += '\tvec2 center = texture(u_eTex, cIndex).xy;\n'
   posString += '\tvec2 dims = texture(u_eTex, dIndex).xy;\n'
   posString += '\td = sdEllipse(uv - vec2(0., 0.) - center, max(abs(dims - center), vec2(0.01,0.01)));\n'
-  posString += '\tfloat stroke = line(d, u_weight);\n'
+  posString += '\tfloat stroke = line(d, u_weight, u_dPt.z);\n'
   posString += '\tvec4 strokeCol = mix(vec4(vec3(1.),0.), vec4(u_stroke,stroke) , stroke);\n'
   posString += '\tfloat fill = fillMask(d);'
   posString += '\tvec4 fillCol = mix(vec4(vec3(1.),0.), vec4(u_fill, u_opacity), fill);\n'
@@ -405,7 +405,6 @@ export function rectangleCall(prim, glyph) {
   let indexY = (Math.floor(0 / dataSize)) / dataSize + texelOffset
   let index = indexX + ', ' + indexY
 
-  // posString += '\tfloat texelOffset =' + texelOffset +';\n';
   posString += '\tvec2 rect1 = texture(u_eTex, vec2(' + index + ')).xy;\n'
 
   indexX = (1. % dataSize) / dataSize + texelOffset
@@ -415,12 +414,14 @@ export function rectangleCall(prim, glyph) {
   posString += '\tvec2 rect2 = texture(u_eTex, vec2(' + index + ')).xy;\n'
   posString += '\tvec2 center = 0.5 * (rect2 - rect1) + rect1;\n'
   posString += '\tvec2 rPt = abs(rect2 - center);\n'
-  posString += '\td = sdBox(uv - vec2(0., 0.), center, rPt, u_radius);\n'
+  posString += '\td = sdBox(uv, center, rPt, u_radius);\n'
 
-  posString += '\tfloat stroke = line(d, u_weight);\n'
+  posString += '\tfloat stroke = line(d, u_weight, u_dPt.z);\n'
   posString += '\tvec4 strokeCol = mix(vec4(vec3(1.),0.), vec4(u_stroke,stroke) , stroke);\n'
-  posString += '\tfloat fill = fillMask(d);'
+  posString += '\tfloat fill = fillMask(d);\n'
   posString += '\tvec4 fillCol = mix(vec4(vec3(1.),0.), vec4(u_fill, u_opacity), fill);\n'
+  // interesting debugging technique 
+  // posString += '\tvec4 fillCol = vec4(filterSDF(uv, d), 0.5);\n'
   posString += '\td = min(stroke, fill);\n'
   posString += '\tif ( d > 1.) discard;\n'
   posString += '\toutColor = vec4(vec3(fillCol.rgb * strokeCol.rgb), fillCol.a + strokeCol.a);\n'
